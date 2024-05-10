@@ -1,4 +1,5 @@
 call index_downloadRemcDaForecastExcel.exe
 call index_pushDaReForecastData.exe
 call index_pushChattSolarForecastData.exe
+call index_updateGujSolarForeWithStateGenFile.exe
 @REM call index_updateGjReForecastToSdl.exe
