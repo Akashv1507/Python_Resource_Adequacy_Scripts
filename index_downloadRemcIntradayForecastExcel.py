@@ -60,23 +60,23 @@ try:
     login_button = wait.until(EC.element_to_be_clickable((By.ID, 'btn_login')))
     login_button.click()
     
-    # downloading mp Intraday solar and wind forecast excel
-    mpIntradaySolarDf=obj_remcWebScrapper.find_data_from_url(f'{remcUrl}index.php/ext_report/mpsldc_combined', 'tab_solar_state', 4)
-    mpIntradaySolarDf.to_csv(f"{reForecastFolderPath}Madhya_Pradesh_Solar_intraday_{currentDateStr}.csv",index=False)
-    logger.info(f"Madhya_Pradesh_Solar_intraday_{currentDateStr}.csv saved successfully")
+    # # downloading mp Intraday solar and wind forecast excel
+    # mpIntradaySolarDf=obj_remcWebScrapper.find_data_from_url(f'{remcUrl}index.php/ext_report/mpsldc_combined', 'tab_solar_state', 4)
+    # mpIntradaySolarDf.to_csv(f"{reForecastFolderPath}Madhya_Pradesh_Solar_intraday_{currentDateStr}.csv",index=False)
+    # logger.info(f"Madhya_Pradesh_Solar_intraday_{currentDateStr}.csv saved successfully")
 
-    mpIntradayWindDf=obj_remcWebScrapper.find_data_from_url(f'{remcUrl}index.php/ext_report/mpsldc_combined', 'tab_wind_state', 4)
-    mpIntradayWindDf.to_csv(f"{reForecastFolderPath}Madhya_Pradesh_Wind_intraday_{currentDateStr}.csv",index=False)
-    logger.info(f"Madhya_Pradesh_Wind_intraday_{currentDateStr}.csv saved successfully")
+    # mpIntradayWindDf=obj_remcWebScrapper.find_data_from_url(f'{remcUrl}index.php/ext_report/mpsldc_combined', 'tab_wind_state', 4)
+    # mpIntradayWindDf.to_csv(f"{reForecastFolderPath}Madhya_Pradesh_Wind_intraday_{currentDateStr}.csv",index=False)
+    # logger.info(f"Madhya_Pradesh_Wind_intraday_{currentDateStr}.csv saved successfully")
 
-    # downloading MH Intraday solar and wind forecast excel
-    mhIntradaySolarDf=obj_remcWebScrapper.find_data_from_url(f'{remcUrl}index.php/ext_report/msldc_combined', 'tab_solar_state', 4)
-    mhIntradaySolarDf.to_csv(f"{reForecastFolderPath}Maharashtra_Solar_intraday_{currentDateStr}.csv",index=False)
-    logger.info(f"Maharashtra_Solar_intraday_{currentDateStr}.csv saved successfully")
+    # # downloading MH Intraday solar and wind forecast excel
+    # mhIntradaySolarDf=obj_remcWebScrapper.find_data_from_url(f'{remcUrl}index.php/ext_report/msldc_combined', 'tab_solar_state', 4)
+    # mhIntradaySolarDf.to_csv(f"{reForecastFolderPath}Maharashtra_Solar_intraday_{currentDateStr}.csv",index=False)
+    # logger.info(f"Maharashtra_Solar_intraday_{currentDateStr}.csv saved successfully")
 
-    mhIntradayWindDf=obj_remcWebScrapper.find_data_from_url(f'{remcUrl}index.php/ext_report/msldc_combined', 'tab_wind_state', 4)
-    mhIntradayWindDf.to_csv(f"{reForecastFolderPath}Maharashtra_Wind_intraday_{currentDateStr}.csv",index=False)
-    logger.info(f"Maharashtra_Wind_intraday_{currentDateStr}.csv saved successfully")
+    # mhIntradayWindDf=obj_remcWebScrapper.find_data_from_url(f'{remcUrl}index.php/ext_report/msldc_combined', 'tab_wind_state', 4)
+    # mhIntradayWindDf.to_csv(f"{reForecastFolderPath}Maharashtra_Wind_intraday_{currentDateStr}.csv",index=False)
+    # logger.info(f"Maharashtra_Wind_intraday_{currentDateStr}.csv saved successfully")
 
     # downloading GJ Intraday solar and wind forecast excel
     gjIntradaySolarDf=obj_remcWebScrapper.find_data_from_url(f'{remcUrl}index.php/ext_report/gj_combined', 'tab_solar_state',4)

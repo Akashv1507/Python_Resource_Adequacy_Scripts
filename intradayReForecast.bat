@@ -1,3 +1,5 @@
-call index_downloadRemcIntradayForecastExcel.exe
-call index_pushIntradayReForecastData.exe
-@REM call index_updateGjReForecastToSdl.exe
+index_pushIntradayReForecastFromRemcApiRealtime.exe
+
+@REM call index_downloadRemcIntradayForecastExcel.exe
+@REM call index_pushIntradayReForecastData.exe
+@REM call index_updateGujSolarForeWithStateGenFile.exe

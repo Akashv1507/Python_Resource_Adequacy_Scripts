@@ -38,7 +38,7 @@ def generateSolarForecastValList(dateKey:dt.datetime):
     stateGenFilePath =   f'{finalDumpFolderPath}State_Gen_{dateStr}.xlsx' 
     dateparse = lambda x: dt.datetime.strptime(x, "%m-%d-%Y %H:%M:%S")
     try:
-        gujSolarStateGenDf = pd.read_excel(stateGenFilePath, skiprows=2, usecols = ["Timestamp","GUJ_SOLAR"], nrows=1440) 
+        gujSolarStateGenDf = pd.read_excel(stateGenFilePath, skiprows=2, usecols = ["Timestamp","GUJ_SOLAR"], nrows=1440, parse_dates=['Timestamp']) 
         gujSolarStateGenDf.set_index('Timestamp', inplace=True)
         gujSolarStateGenDf= gujSolarStateGenDf.resample('15T').mean()
         gujSolarStateGenDf.reset_index(drop=True, inplace=True)

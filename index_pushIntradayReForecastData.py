@@ -54,10 +54,11 @@ while currdate<=endDate:
         stateWindForecastDf = pd.DataFrame()
         isFoundCurrDayCurStateSolarFile=False
         isFoundCurrDayCurStateWindFile=False
-        # reading schedule column in case of gujarat ,becoz gujarat wind/solar forecast is incorrect B=Time, C-Forecast, F-Schedule
+        # update 1 reading schedule column in case of gujarat ,becoz gujarat wind/solar forecast is incorrect B=Time, C-Forecast, F-Schedule
+        # update 2 now gujarat wind/sola forecast coming correct. updating to original.
         usecolsVar= [1,2]
-        if stateName=='Gujarat':
-            usecolsVar= [1,5]
+        # if stateName=='Gujarat':
+        #     usecolsVar= [1,5]
         for singleReFile in reForecastFiles:
                     
             if (isFoundCurrDayCurStateSolarFile==False) and (currdateStrYYYYMMDD in singleReFile) and (stateName in singleReFile) and ('intraday' in singleReFile) and ('Solar' in singleReFile) and (singleReFile.endswith(('.csv'))):               

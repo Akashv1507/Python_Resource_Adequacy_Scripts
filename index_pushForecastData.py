@@ -22,15 +22,14 @@ dbConStr = appConfig['con_string_mis_warehouse']
 
 endDate = dt.datetime.now() + dt.timedelta(days=1)
 startDate = endDate 
-# startDate = dt.datetime.strptime("2024-02-01", '%Y-%m-%d')
-# endDate = dt.datetime.strptime("2024-02-01" , '%Y-%m-%d')
+# startDate = dt.datetime.strptime("2024-05-21", '%Y-%m-%d')
+# endDate = dt.datetime.strptime("2024-05-21" , '%Y-%m-%d')
 # get start and end dates from command line
 parser = argparse.ArgumentParser()
 parser.add_argument('--start_date', help="Enter Start date in yyyy-mm-dd format",
                     default=dt.datetime.strftime(startDate, '%Y-%m-%d'))
 parser.add_argument('--end_date', help="Enter end date in yyyy-mm-dd format",
                     default=dt.datetime.strftime(endDate, '%Y-%m-%d'))
-                   
 args = parser.parse_args()
 startDate = dt.datetime.strptime(args.start_date, '%Y-%m-%d')
 endDate = dt.datetime.strptime(args.end_date, '%Y-%m-%d')
