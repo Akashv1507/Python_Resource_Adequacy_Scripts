@@ -13,3 +13,7 @@ def loadAppConfig(fName="secret/config.json"):
         global appConf
         appConf = json.load(f)
         return appConf
+    
+def getAppConfig():
+    global appConf
+    return appConf
