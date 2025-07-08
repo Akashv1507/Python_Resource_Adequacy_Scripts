@@ -135,25 +135,33 @@ class DeficitCalculationService:
         
     def connectMisWarehouseDb(self):
         """Establish a mis warehouse database connection."""
+        if self.misWarehouseConnection:
+            self.disconnectMisWarehouseDb()
         try:
             self.misWarehouseConnection = cx_Oracle.connect(self.conStringMisWarehouse)
+            loggerr.info("Connected to Oracle MIS DB")
         except Exception as e:
-            loggerr.error(f"MIS warehouse Database connection error: {str(e)}")
+            loggerr.error(f"MIS Oracle DB connection error: {str(e)}")
             self.misWarehouseConnection = None
 
     def disconnectMisWarehouseDb(self):
         """Close the mis warehouse database connection."""
         if self.misWarehouseConnection:
+            loggerr.info("Closing Oracle (MIS) DB connection")
             self.misWarehouseConnection.close()
+            self.misWarehouseConnection = None
 
     def connectRaPostgresDb(self):
         """Establish a postgresql database connection."""
+        if self.postgresqlConnection:
+            self.disconnectRaPostgresDb()
         try:
             self.postgresqlConnection = psycopg.connect(dbname=self.postgresqlDbName,
                             user=self.postgresqlUser,
                             password=self.postgresqlPwd,
                             host=self.postgresqlHost,
                             port=self.postgresqlPort, row_factory=dict_row)
+            loggerr.info("Connected to PostgreSql RA DB")
         except Exception as e:
             loggerr.error(f"RA postgresql Database connection error: {str(e)}")
             self.postgresqlConnection = None
@@ -161,7 +169,15 @@ class DeficitCalculationService:
     def disconnectRaPostgresDb(self):
         """Close the postgresql database connection."""
         if self.postgresqlConnection:
-            self.postgresqlConnection.close()
+            loggerr.info("Closing Postgres (RA) DB connection")
+            try:
+                self.postgresqlConnection.commit()
+            except Exception as e:
+                loggerr.warning(f"Postgres commit failed before closing: {str(e)}")
+                self.postgresqlConnection.rollback()
+            finally:
+                self.postgresqlConnection.close()
+                self.postgresqlConnection = None
 
     def fetchDemandForecast(self, startTimestamp: dt.datetime, endTimestamp: dt.datetime, entityTag: list, revisionNo: str):
         """
@@ -238,7 +254,8 @@ class DeficitCalculationService:
             print(f"Error fetching mapping data: {str(e)}")
             return []
         finally:
-            cursor.close()
+            if cursor:
+                cursor.close()
 
     def fetchReForecastData(self, startTime:dt.datetime, endTime:dt.datetime, genType:str, reStateAcrList:list, revisionNo : str):
         """
@@ -427,7 +444,8 @@ class DeficitCalculationService:
             print(f"Error fetching latest revision from deficit revision meta data: {str(e)}")
             return latestRev
         finally:
-            cursor.close()
+            if cursor:
+                cursor.close()
         
     def checkDeficitValueChanged (self, deficitDataDf:pd.DataFrame, defType:str, defRevNo:str):
 
@@ -480,7 +498,8 @@ class DeficitCalculationService:
             print(f"Error fetching latest revision data : {str(e)}")
             return isChanged
         finally:
-            cursor.close()
+            if cursor:
+                cursor.close()
 
     def insertStateDeficitData(self, records:list,  ):
         """Insert state deficit data present in records variable to postgresql db."""
@@ -505,7 +524,8 @@ class DeficitCalculationService:
         except Exception as e:
             print(f"Error pushing state deficit  data: {str(e)}")
         finally:
-            cursor.close()
+            if cursor:
+                cursor.close()
             return isInsertionSuccessfull
 
     def incrementRevisionNo(self, label: str) -> str:
@@ -551,6 +571,6 @@ class DeficitCalculationService:
         except Exception as e:
             print(f"Error pushing state deficit  data: {str(e)}")
         finally:
-            cursor.close()
+            if cursor:
+                cursor.close()
             return isInsertionSuccessfull
-    # def dfToListofTuple()

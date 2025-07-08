@@ -7,7 +7,9 @@
 @REM pyinstaller index_updateGjReForecastToSdl.py --onefile
 @REM pyinstaller index_pushChattSolarForecastData.py --onefile
 @REM pyinstaller index_updateGujSolarForeWithStateGenFile.py --onefile
-pyinstaller index_pushLoadSheddingData.py --onefile
+@REM pyinstaller index_pushLoadSheddingData.py --onefile
+pyinstaller index_pushOutageSummaryData.py --onefile
+pyinstaller index_pushStateDeficitData.py --onefile
 
 @REM xcopy /y dist\index_pushForecastData.exe index_pushForecastData.exe*
 @REM xcopy /y dist\index_generateDcSdlActDataForScada.exe index_generateDcSdlActDataForScada.exe*
@@ -18,4 +20,6 @@ pyinstaller index_pushLoadSheddingData.py --onefile
 @REM xcopy /y dist\index_updateGjReForecastToSdl.exe index_updateGjReForecastToSdl.exe*
 @REM xcopy /y dist\index_pushChattSolarForecastData.exe index_pushChattSolarForecastData.exe*
 @REM xcopy /y dist\index_updateGujSolarForeWithStateGenFile.exe index_updateGujSolarForeWithStateGenFile.exe*
-xcopy /y dist\index_pushLoadSheddingData.exe index_pushLoadSheddingData.exe*
+@REM xcopy /y dist\index_pushLoadSheddingData.exe index_pushLoadSheddingData.exe*
+xcopy /y dist\index_pushOutageSummaryData.exe index_pushOutageSummaryData.exe*
+xcopy /y dist\index_pushStateDeficitData.exe index_pushStateDeficitData.exe*

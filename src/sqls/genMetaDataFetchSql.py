@@ -1,0 +1,29 @@
+genMetaDataFetchSql = '''SELECT
+    ssm.FULL_NAME AS state_name,
+    gst.NAME AS station_type,
+    CASE
+        WHEN CM.CLASSIFICATION = 'STATE_IPP' THEN 'STATE_OWNED'
+        ELSE CM.CLASSIFICATION
+    END AS CLASSIFICATION,
+    SUM(gu.INSTALLED_CAPACITY) AS INSTALLED_CAPACITY
+FROM
+    reporting_web_ui_uat.GENERATING_UNIT gu
+LEFT JOIN reporting_web_ui_uat.GENERATING_STATION gs ON
+    gs.ID = gu.FK_GENERATING_STATION
+LEFT JOIN reporting_web_ui_uat.CLASSIFICATION_MASTER cm ON
+    cm.ID = gs.CLASSIFICATION_ID
+LEFT JOIN REPORTING_WEB_UI_UAT.SRLDC_STATE_MASTER ssm ON
+    ssm.ID = gs.LOCATION_ID
+LEFT JOIN reporting_web_ui_uat.GENERATING_STATION_TYPE gst ON
+    gst.ID = gs.station_type
+GROUP BY
+    ssm.FULL_NAME,
+    gst.NAME,
+    CASE
+        WHEN CM.CLASSIFICATION = 'STATE_IPP' THEN 'STATE_OWNED'
+        ELSE CM.CLASSIFICATION
+    END
+ORDER BY
+    state_name,
+    station_type,
+    CLASSIFICATION'''
