@@ -22,7 +22,9 @@ outageFetchSql = '''SELECT
             LEFT JOIN reporting_web_ui_uat.CLASSIFICATION_MASTER cm ON cm.ID = gs.CLASSIFICATION_ID 
             LEFT JOIN REPORTING_WEB_UI_UAT.SRLDC_STATE_MASTER SSM on SSM.id = GS.LOCATION_ID
             LEFT JOIN reporting_web_ui_uat.GENERATING_STATION_TYPE gst ON gst.ID = gs.station_type
-            WHERE ent_master.entity_name='GENERATING_UNIT' 
+            WHERE 
+            gu.ACTIVE =1
+            And ent_master.entity_name='GENERATING_UNIT' 
                 AND
                     (TO_CHAR(outages.outage_date, 'YYYY-MM-DD') || ' ' || outages.OUTAGE_TIME) <= :targetDatetime
                 AND (
