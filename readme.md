@@ -8,7 +8,6 @@ startDaTargetTime = 2025-05-26 00:00:00 , endDaTargetTime = 2025-05-26 23:59:00
 
 2. It will calculate DA deficit for tommorrow
 
-
 3. Fetching Day Ahead and Intraday Revision number for Demand forecast, RE Forecast and schedule based on TargetTime. For schedule dayahead revision for 26 will be created on 25. Make Api call of revision for 25 and 26, 26(DA) revision will be created on 25.
 
 4. Fetching demand forecast data for intraday(startTargetTime, endTargetTime) and dayahead(startDaTargetTime, endDaTargetTime) 

@@ -74,7 +74,15 @@ if len(dayaheadSolarForecastData)==0:
 if len(dayaheadWindForecastData)==0:
     dayaheadWindForecastData = deficitCalculationService.fetchDaReForecastDataFromRealTimeApi(startDaTargetTime, endDaTargetTime, "WIND", allStateReAcr)
 
+# handling special case for chattisgarh(Solar Forecast) as it is not coming from remc api . it is stored in local mis db
+deficitCalculationService.connectMisWarehouseDb()
+chattIntradaySolarForecastData = deficitCalculationService.fetchChattReForecast(startTargetTime, endTargetTime, 'SOLAR')
+chattDayaheadSolarForecastData = deficitCalculationService.fetchChattReForecast(startDaTargetTime, endDaTargetTime, 'SOLAR')
+deficitCalculationService.disconnectMisWarehouseDb()
+intradaySolarForecastData.extend(chattIntradaySolarForecastData)
+dayaheadSolarForecastData.extend(chattDayaheadSolarForecastData)
 
+print("Fetched all forecast data successfully")
 #fetching schedule data
 intradaySdlDataDict = deficitCalculationService.fetchWbesSdlData(targetTime, allStateWbesAcr, scheduleRevNoDict['intRevNo'] )
 daSdlDataDict = deficitCalculationService.fetchWbesSdlData(daTargetTime, allStateWbesAcr, scheduleRevNoDict['daRevNo'])
@@ -170,7 +178,7 @@ if latestDaRevision is None:
     for index, row in allStateDayaheadDeficitData.iterrows():
         listOfRows.append((row['Timestamp'], row['State_Key'], row['Def_Type'], revisionNo, round(row['Def_Val']), round(row['Forecast_Val']), round(row['Sdl_Val']), round(row['DC_Val']), round(row['Wind_Fore_Val']), round(row['Solar_Fore_Val']), round(row['Others_Val'])))
     isInsertionSuccess = deficitCalculationService.insertStateDeficitData(listOfRows)
-    isInsertionSuccess = deficitCalculationService.insertStateDeficitData(listOfRows)
+    # isInsertionSuccess = deficitCalculationService.insertStateDeficitData(listOfRows)
     if isInsertionSuccess:
         metaRecord= {"date": daTargetTime.date(),"time": targetTime.time(), "def_type": "DA","def_rev_no": revisionNo ,"forecast_rev_no": demForRevNoDict['daRevNo'], 
                      "sch_rev_no": scheduleRevNoDict['daRevNo'], "dc_rev_no": "DA1","reforecast_rev_no": reForeRevNoDict['daRevNo']}

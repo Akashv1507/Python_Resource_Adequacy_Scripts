@@ -283,6 +283,7 @@ class DeficitCalculationService:
                     print(responseData['responseData'])
             except Exception as err:
                 print(f"API call failed with error -> {err}")
+            
         return allstateReForecastData
     
     def fetchDaReForecastDataFromRealTimeApi(self, startTime:dt.datetime, endTime:dt.datetime, genType:str, reStateAcrList:list):
@@ -373,6 +374,7 @@ class DeficitCalculationService:
             if data['state'] == stateRaDbAcr:
                     dcList.append(data['dc_data'])
 
+       
         # Solar Data
         for data in solarData:
             if data['stateAcr'] == stateReAcr:
@@ -577,3 +579,51 @@ class DeficitCalculationService:
             if cursor:
                 cursor.close()
             return isInsertionSuccessfull
+
+    def fetchChattReForecast(self, startTimestamp: dt.datetime, endTimestamp: dt.datetime, reType: str):
+        """
+        Fetch RE data from the RE_FORECAST table based on timestamps, entity_tag, and re_type.
+        """
+        if not self.misWarehouseConnection:
+            loggerr.info("No active database MIS warehous connection.")
+            return []
+        # Dynamically build placeholders like :tag0, :tag1, :tag2
+        loggerr.info(f"Chatt RE Forecast Fetching Started for {startTimestamp.date()}/{endTimestamp.date()}/{reType}")
+        query = f"""
+            SELECT TIME_STAMP, RE_FORECASTED_VALUE 
+            FROM RE_FORECAST 
+            WHERE TIME_STAMP BETWEEN :start_ts AND :end_ts 
+              AND ENTITY_TAG = 'WRLDCMP.SCADA1.A0046945'
+              AND Re_TYPE = :re_type
+              order by TIME_STAMP
+        """
+
+        try:
+            cursor = self.misWarehouseConnection.cursor()
+            params ={
+                "start_ts": startTimestamp,
+                "end_ts": endTimestamp,
+                "re_type": reType
+            }
+           
+            cursor.execute(query, params )
+
+            rows = cursor.fetchall()
+
+            # Process the result
+            reForecastData = [
+                {
+                    "timestamp": row[0].strftime('%Y-%m-%d %H:%M'),
+                    "value": row[1],
+                    "stateAcr": "IN_CH"
+                }
+                for row in rows
+            ]
+            return reForecastData
+
+        except Exception as e:
+            loggerr.exception(f"Error during demand forecast data fetch: {str(e)}")
+            return []
+        finally:
+            if cursor:
+                cursor.close()
