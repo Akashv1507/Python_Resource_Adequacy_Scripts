@@ -38,7 +38,7 @@ startDateTime = dt.datetime.strptime(args.start_dateTime, '%Y-%m-%d %H:%M:%S')
 endDateTime = dt.datetime.strptime(args.end_dateTime, '%Y-%m-%d %H:%M:%S')
 # startDateTime = startDateTime.replace(hour=0, minute=0, second=0, microsecond=0)
 # endDateTime = endDateTime.replace(hour=0, minute=0, second=59, microsecond=0)
-logger.info(f"------Insertion started of outage summary b/w {dt.datetime.strftime(startDateTime, '%Y-%m-%d')}To{dt.datetime.strftime(endDateTime, '%Y-%m-%d')}--------- ")
+logger.info(f"------Insertion started of outage summary b/w {dt.datetime.strftime(startDateTime, '%Y-%m-%d %H:%M:%S')} To {dt.datetime.strftime(endDateTime, '%Y-%m-%d %H:%M:%S')}--------- ")
 genAllTypeOutageSummaryService = GenAllTypeOutageSummaryService(appConfig["postgresqlHost"], appConfig["postgresqlPort"], appConfig["postgresqlDb"], appConfig["postgresqlUser"], appConfig["postgresqlPass"], appConfig["con_string_outage_db"], appConfig['instantClientPath'])
 
 

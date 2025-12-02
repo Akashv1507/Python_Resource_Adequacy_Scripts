@@ -8,8 +8,8 @@
 @REM pyinstaller index_pushChattSolarForecastData.py --onefile
 @REM pyinstaller index_updateGujSolarForeWithStateGenFile.py --onefile
 @REM pyinstaller index_pushLoadSheddingData.py --onefile
-@REM pyinstaller index_pushOutageSummaryData.py --onefile
-pyinstaller index_pushStateDeficitData.py --onefile
+pyinstaller index_pushOutageSummaryData.py --onefile
+@REM pyinstaller index_pushStateDeficitData.py --onefile
 pyinstaller index_pushGenAllTypeOutageSummaryData.py --onefile
 
 @REM xcopy /y dist\index_pushForecastData.exe index_pushForecastData.exe*
@@ -22,6 +22,6 @@ pyinstaller index_pushGenAllTypeOutageSummaryData.py --onefile
 @REM xcopy /y dist\index_pushChattSolarForecastData.exe index_pushChattSolarForecastData.exe*
 @REM xcopy /y dist\index_updateGujSolarForeWithStateGenFile.exe index_updateGujSolarForeWithStateGenFile.exe*
 @REM xcopy /y dist\index_pushLoadSheddingData.exe index_pushLoadSheddingData.exe*
-@REM xcopy /y dist\index_pushOutageSummaryData.exe index_pushOutageSummaryData.exe*
-xcopy /y dist\index_pushStateDeficitData.exe index_pushStateDeficitData.exe*
+xcopy /y dist\index_pushOutageSummaryData.exe index_pushOutageSummaryData.exe*
+@REM xcopy /y dist\index_pushStateDeficitData.exe index_pushStateDeficitData.exe*
 xcopy /y dist\index_pushGenAllTypeOutageSummaryData.exe index_pushGenAllTypeOutageSummaryData.exe*
